@@ -6,4 +6,4 @@ Run a Powershell Terminal as an Administrator.
 4. Click "Yes" to allow User Account Control to make changes.
 5. Copy and paste the following command to the prompt and press enter.
 
-~iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/nickgabbard/fix-idemia-drivers/main/DeleteOldIdemiaDriver.ps1'))~
+`iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/nickgabbard/fix-idemia-drivers/main/DeleteOldIdemiaDriver.ps1'))`
