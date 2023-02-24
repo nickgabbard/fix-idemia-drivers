@@ -4,5 +4,5 @@
  ForEach($SCDriver in $RMDriver){
     $DeleteCommand =  "pnputil.exe /delete-driver $($SCDriver) /force"
     Write-Output $DeleteCommand
-    Start-Process PNPUtil -ArgumentList "/delete-driver",$($SCDriver),"/force" WhatIf
+    Start-Process PNPUtil -ArgumentList "/delete-driver",$($SCDriver),"/force" -WhatIf
 }
