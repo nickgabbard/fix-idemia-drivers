@@ -1,0 +1,388 @@
+;
+; Gemalto Minidriver for IDPrime Smartcard installation x86 and x64 package.
+;
+
+[Version]
+Signature="$Windows NT$"
+Class=SmartCard
+ClassGuid={990A2BD7-E738-46c7-B26F-1CF8FB9F1391}
+Provider="Gemalto IDPrime"
+CatalogFile=delta.cat
+DriverVer=05/10/2017,8.5.0.6
+
+[Manufacturer]
+%ProviderName%=Minidriver,NTamd64,NTamd64.6.1,NTx86,NTx86.6.1
+
+
+[Minidriver.NTamd64]
+%CardDeviceNameIDPrime%=Minidriver64_Install,SCFILTER\CID_10602033-e7e2-f94a-bf60-bca20a0babb5
+%CardDeviceNameDotNET%=Minidriver64_Install,SCFILTER\CID_417374726964
+
+[Minidriver.NTx86]
+%CardDeviceNameIDPrime%=Minidriver32_Install,SCFILTER\CID_10602033-e7e2-f94a-bf60-bca20a0babb5
+%CardDeviceNameDotNET%=Minidriver32_Install,SCFILTER\CID_417374726964
+
+[Minidriver.NTamd64.6.1]
+%CardDeviceNameIDPrime%=Minidriver64_61_Install,SCFILTER\CID_10602033-e7e2-f94a-bf60-bca20a0babb5
+%CardDeviceNameDotNET%=Minidriver64_61_Install,SCFILTER\CID_417374726964
+
+[Minidriver.NTx86.6.1]
+%CardDeviceNameIDPrime%=Minidriver32_61_Install,SCFILTER\CID_10602033-e7e2-f94a-bf60-bca20a0babb5
+%CardDeviceNameDotNET%=Minidriver32_61_Install,SCFILTER\CID_417374726964
+
+[DefaultInstall]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[DefaultInstall.ntamd64]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+
+[DefaultInstall.NTx86]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[DefaultInstall.NTamd64.6.1]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+
+[DefaultInstall.NTx86.6.1]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[SourceDisksFiles]
+axaltocm64.dll=1
+axaltocm.dll=1
+
+[SourceDisksNames]
+1 = %MediaDescription%
+
+[UMPassService_Install]
+DisplayName    = %umpass.SVCDESC%     ; Friendly Name of the Service
+ServiceType    = 1                    ; SERVICE_KERNEL_DRIVER
+StartType      = 3                    ; SERVICE_DEMAND_START 
+ErrorControl   = 1                    ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\umpass.sys
+LoadOrderGroup = Extended Base
+
+[Minidriver64_Install.NT]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+
+[Minidriver64_61_Install.NT]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault
+
+[Minidriver32_Install.NT]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[Minidriver32_61_Install.NT]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+
+[Minidriver64_Install.NT.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+ 
+[Minidriver32_Install.NT.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+
+[Minidriver64_61_Install.NT.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+
+[Minidriver32_61_Install.NT.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+
+[amd64_CopyFiles]
+axaltocm.dll,axaltocm64.dll
+
+[x86_CopyFiles]
+axaltocm.dll
+
+[wow64_CopyFiles]
+axaltocm.dll
+
+[AddRegWOW64]
+HKLM, %SmartCardNameIDPrimeT0WOW64%,"ATR",0x00000001,3b,7f,00,00,00,80,31,80,65,b0,00,00,00,00,12,0f,fe,82,90,00
+HKLM, %SmartCardNameIDPrimeT0WOW64%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeT0WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeT0WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeT0WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeT1WOW64%,"ATR",0x00000001,3b,ff,00,00,00,81,31,00,43,80,31,80,65,b0,00,00,00,00,12,0f,fe,82,90,00,00
+HKLM, %SmartCardNameIDPrimeT1WOW64%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,00,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameIDPrimeT1WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeT1WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeT1WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeCLWOW64%,"ATR",0x00000001,3B,8F,80,01,80,31,80,65,B0,00,00,00,00,12,0F,FE,82,90,00,00
+HKLM, %SmartCardNameIDPrimeCLWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameIDPrimeCLWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeCLWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeCLWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameDotNETWOW64%,"ATR",0x00000001,3b,00,00,41,73,74,72,69,64
+HKLM, %SmartCardNameDotNETWOW64%,"ATRMask",0x00000001,ff,00,00,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameDotNETWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameDotNETWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameDotNETWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioT0WOW64%,"ATR",0x00000001,3b,6e,00,00,80,31,80,66,b1,a1,11,01,a0,f6,83,00,90,00
+HKLM, %SmartCardNameOptelioT0WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioT0WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioT0WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioT0WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioT1WOW64%,"ATR",0x00000001,3b,ee,00,00,81,31,80,43,80,31,80,66,b1,a1,11,01,a0,f6,83,00,90,00,8f
+HKLM, %SmartCardNameOptelioT1WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioT1WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioT1WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioT1WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE1WOW64%,"ATR",0x00000001,3b,88,80,01,00,00,00,00,00,01,00,00,00
+HKLM, %SmartCardNameIDPrimeMDCE1WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,0f,00,00,ff,00,0f,00,00,00
+HKLM, %SmartCardNameIDPrimeMDCE1WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE1WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE1WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE2WOW64%,"ATR",0x00000001,3b,80,80,01,01
+HKLM, %SmartCardNameIDPrimeMDCE2WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE2WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE2WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE2WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE3WOW64%,"ATR",0x00000001,3b,86,80,01,06,77,80,77,02,80,03
+HKLM, %SmartCardNameIDPrimeMDCE3WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE3WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE3WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE3WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE4WOW64%,"ATR",0x00000001,3b,8A,80,01,00,31,C1,73,C8,40,00,00,90,00,90
+HKLM, %SmartCardNameIDPrimeMDCE4WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE4WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE4WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE4WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE5WOW64%,"ATR",0x00000001,3b,81,80,01,80,80
+HKLM, %SmartCardNameIDPrimeMDCE5WOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE5WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE5WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE5WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDSIMWOW64%,"ATR",0x00000001,3b,9f,96,c0,0a,3f,c0,a0,80,31,e0,73,fe,21,10,65,d0,01,00,00,00,00,00,00
+HKLM, %SmartCardNameIDPrimeMDSIMWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,f0,ff,ff,ff,ff,ff,ff,ff,f0,ff,ff,ff,00,00,00,00,00,00
+HKLM, %SmartCardNameIDPrimeMDSIMWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDSIMWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDSIMWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioCWOW64%,"ATR",0x00000001,3b,6e,00,00,80,31,80,66,b0,87,0C,01,6e,01,83,00,90,00
+HKLM, %SmartCardNameOptelioCWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioCWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioCWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioCWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioCLWOW64%,"ATR",0x00000001,3b,8e,80,01,80,31,80,66,b1,84,0C,01,6e,01,83,00,90,00,00
+HKLM, %SmartCardNameOptelioCLWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameOptelioCLWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioCLWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioCLWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioF10CWOW64%,"ATR",0x00000001,3b,6f,00,00,80,66,b0,07,01,01,07,00,00,00,00,00,00,90,00
+HKLM, %SmartCardNameOptelioF10CWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,00,00,ff,ff
+HKLM, %SmartCardNameOptelioF10CWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioF10CWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioF10CWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioF10CLWOW64%,"ATR",0x00000001,3b,8f,80,01,80,66,b0,07,01,01,07,00,00,00,00,00,00,90,00,00
+HKLM, %SmartCardNameOptelioF10CLWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,00,00,ff,ff,00
+HKLM, %SmartCardNameOptelioF10CLWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioF10CLWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioF10CLWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioWG10CWOW64%,"ATR",0x00000001,3b,68,00,00,80,66,b0,07,01,01,07,07
+HKLM, %SmartCardNameOptelioWG10CWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioWG10CWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioWG10CWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioWG10CWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioWG10CLWOW64%,"ATR",0x00000001,3b,88,80,01,80,66,b0,07,01,01,07,00,00
+HKLM, %SmartCardNameOptelioWG10CLWOW64%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00
+HKLM, %SmartCardNameOptelioWG10CLWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioWG10CLWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioWG10CLWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+
+
+[AddRegDefault]
+HKLM, %SmartCardNameIDPrimeT0%,"ATR",0x00000001,3b,7f,00,00,00,80,31,80,65,b0,00,00,00,00,12,0f,fe,82,90,00
+HKLM, %SmartCardNameIDPrimeT0%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeT0%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeT0%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeT0%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeT1%,"ATR",0x00000001,3b,ff,00,00,00,81,31,00,43,80,31,80,65,b0,00,00,00,00,12,0f,fe,82,90,00,00
+HKLM, %SmartCardNameIDPrimeT1%,"ATRMask",0x00000001,ff,ff,00,ff,ff,ff,ff,00,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameIDPrimeT1%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeT1%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeT1%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeCL%,"ATR",0x00000001,3B,8F,80,01,80,31,80,65,B0,00,00,00,00,12,0F,FE,82,90,00,00
+HKLM, %SmartCardNameIDPrimeCL%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameIDPrimeCL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeCL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeCL%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameDotNET%,"ATR",0x00000001,3b,00,00,41,73,74,72,69,64
+HKLM, %SmartCardNameDotNET%,"ATRMask",0x00000001,ff,00,00,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameDotNET%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameDotNET%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameDotNET%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioT0%,"ATR",0x00000001,3b,6e,00,00,80,31,80,66,b1,a1,11,01,a0,f6,83,00,90,00
+HKLM, %SmartCardNameOptelioT0%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioT0%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioT0%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioT0%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioT1%,"ATR",0x00000001,3b,ee,00,00,81,31,80,43,80,31,80,66,b1,a1,11,01,a0,f6,83,00,90,00,8f
+HKLM, %SmartCardNameOptelioT1%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioT1%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioT1%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioT1%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE1%,"ATR",0x00000001,3b,88,80,01,00,00,00,00,00,01,00,00,00
+HKLM, %SmartCardNameIDPrimeMDCE1%,"ATRMask",0x00000001,ff,ff,ff,ff,0f,00,00,ff,00,0f,00,00,00
+HKLM, %SmartCardNameIDPrimeMDCE1%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE1%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE1%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE2%,"ATR",0x00000001,3b,80,80,01,01
+HKLM, %SmartCardNameIDPrimeMDCE2%,"ATRMask",0x00000001,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE2%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE2%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE2%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE3%,"ATR",0x00000001,3b,86,80,01,06,77,80,77,02,80,03
+HKLM, %SmartCardNameIDPrimeMDCE3%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE3%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE3%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE3%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE4%,"ATR",0x00000001,3b,8A,80,01,00,31,C1,73,C8,40,00,00,90,00,90
+HKLM, %SmartCardNameIDPrimeMDCE4%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE4%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE4%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE4%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDCE5%,"ATR",0x00000001,3b,81,80,01,80,80
+HKLM, %SmartCardNameIDPrimeMDCE5%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameIDPrimeMDCE5%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDCE5%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDCE5%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameIDPrimeMDSIM%,"ATR",0x00000001,3b,9f,96,c0,0a,3f,c0,a0,80,31,e0,73,fe,21,10,65,d0,01,00,00,00,00,00,00
+HKLM, %SmartCardNameIDPrimeMDSIM%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,f0,ff,ff,ff,ff,ff,ff,ff,f0,ff,ff,ff,00,00,00,00,00,00
+HKLM, %SmartCardNameIDPrimeMDSIM%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameIDPrimeMDSIM%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameIDPrimeMDSIM%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioC%,"ATR",0x00000001,3b,6e,00,00,80,31,80,66,b0,87,0C,01,6e,01,83,00,90,00
+HKLM, %SmartCardNameOptelioC%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioC%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioC%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioC%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioCL%,"ATR",0x00000001,3b,8e,80,01,80,31,80,66,b1,84,0C,01,6e,01,83,00,90,00,00
+HKLM, %SmartCardNameOptelioCL%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00
+HKLM, %SmartCardNameOptelioCL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioCL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioCL%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioF10C%,"ATR",0x00000001,3b,6f,00,00,80,66,b0,07,01,01,07,00,00,00,00,00,00,90,00
+HKLM, %SmartCardNameOptelioF10C%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,00,00,ff,ff
+HKLM, %SmartCardNameOptelioF10C%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioF10C%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioF10C%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioF10CL%,"ATR",0x00000001,3b,8f,80,01,80,66,b0,07,01,01,07,00,00,00,00,00,00,90,00,00
+HKLM, %SmartCardNameOptelioF10CL%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00,00,00,00,00,ff,ff,00
+HKLM, %SmartCardNameOptelioF10CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioF10CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioF10CL%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioWG10C%,"ATR",0x00000001,3b,68,00,00,80,66,b0,07,01,01,07,07
+HKLM, %SmartCardNameOptelioWG10C%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff
+HKLM, %SmartCardNameOptelioWG10C%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioWG10C%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioWG10C%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameOptelioWG10CL%,"ATR",0x00000001,3b,88,80,01,80,66,b0,07,01,01,07,00,00
+HKLM, %SmartCardNameOptelioWG10CL%,"ATRMask",0x00000001,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,ff,00,00
+HKLM, %SmartCardNameOptelioWG10CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameOptelioWG10CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameOptelioWG10CL%,"80000001",0x00000000,%SmartCardCardModule%
+
+
+[DestinationDirs]
+amd64_CopyFiles=10,system32
+x86_CopyFiles=10,system32
+wow64_CopyFiles=10,syswow64
+
+; =================== Generic ==================================
+
+[Strings]
+ProviderName ="Gemalto"
+MediaDescription="Gemalto Minidriver for IDPrime Smart Card"
+
+CardDeviceNameIDPrime="Gemalto IDPrime MD Smart Card"
+SmartCardNameIDPrimeT0="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD T=0"
+SmartCardNameIDPrimeT1="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD T=1"
+SmartCardNameIDPrimeCL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD Contactless"
+SmartCardNameOptelioT0="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio D72 FXR1 (MD) T=0"
+SmartCardNameOptelioT1="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio D72 FXR1 (MD) T=1"
+SmartCardNameIDPrimeMDCE1="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type1"
+SmartCardNameIDPrimeMDCE2="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type2"
+SmartCardNameIDPrimeMDCE3="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type3"
+SmartCardNameIDPrimeMDCE4="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type4"
+SmartCardNameIDPrimeMDCE5="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type5"
+SmartCardNameIDPrimeMDSIM="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Gemalto UICC in contact"
+SmartCardNameOptelioC="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 Contact"
+SmartCardNameOptelioCL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 Contactless"
+SmartCardNameOptelioF10C="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10+2F10 contact"
+SmartCardNameOptelioF10CL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10+2F10 contactless"
+SmartCardNameOptelioWG10C="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10 contact"
+SmartCardNameOptelioWG10CL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10 contactless"
+
+SmartCardNameIDPrimeT0WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD T=0"
+SmartCardNameIDPrimeT1WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD T=1"
+SmartCardNameIDPrimeCLWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDPrime MD Contactless"
+SmartCardNameOptelioT0WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio D72 FXR1 (MD) T=0"
+SmartCardNameOptelioT1WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio D72 FXR1 (MD) T=1"
+SmartCardNameIDPrimeMDCE1WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type1"
+SmartCardNameIDPrimeMDCE2WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type2"
+SmartCardNameIDPrimeMDCE3WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type3"
+SmartCardNameIDPrimeMDCE4WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type4"
+SmartCardNameIDPrimeMDCE5WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Card emulation Type5"
+SmartCardNameIDPrimeMDSIMWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Gemalto UICC in contact"
+SmartCardNameOptelioCWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 Contact"
+SmartCardNameOptelioCLWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 Contactless"
+SmartCardNameOptelioF10CWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10+2F10 contact"
+SmartCardNameOptelioF10CLWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10+2F10 contactless"
+SmartCardNameOptelioWG10CWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10 contact"
+SmartCardNameOptelioWG10CLWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Optelio R7 with WG10 contactless"
+
+
+CardDeviceNameDotNET="Gemalto IDPrime .NET Smart Card"
+SmartCardNameDotNET="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Axalto Cryptoflex .NET"
+SmartCardNameDotNETWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Axalto Cryptoflex .NET"
+
+SmartCardCardModule="axaltocm.dll"
+umpass.SVCDESC = "Microsoft UMPass Driver"
