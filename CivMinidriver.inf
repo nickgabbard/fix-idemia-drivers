@@ -1,0 +1,205 @@
+;
+;IDEMIA PIV/CIV Smartcard Minidriver for an x86 and x64 based package.
+;
+
+[Version]
+Signature="$Windows NT$"
+Class=SmartCard
+ClassGuid={990A2BD7-E738-46c7-B26F-1CF8FB9F1391}
+Provider=%FABRIKAMVENDOR%
+CatalogFile=CivMinidriver.cat
+DriverVer=06/25/2021,1.2.8.438
+
+[Manufacturer]
+%FABRIKAMVENDOR%=Minidriver,NTamd64,NTx86
+
+[Minidriver.NTamd64]
+%FabrikamCardDeviceName%=Minidriver64_Install,SCFILTER\CID_C6BA7B16-273E-5D46-8495-60E6786fCDA0
+
+[Minidriver.NTx86]
+%FabrikamCardDeviceName%=Minidriver32_Install,SCFILTER\CID_C6BA7B16-273E-5D46-8495-60E6786fCDA0
+
+
+[Minidriver64_Install.NTamd64]
+CopyFiles=amd64_CopyFiles
+CopyFiles=wow64_CopyFiles
+AddReg=AddRegWOW64
+AddReg=AddRegDefault64
+DelReg=DelRegDefault
+DelReg=DelRegWOW64
+
+[Minidriver32_Install.NTx86]
+CopyFiles=x86_CopyFiles
+AddReg=AddRegDefault
+DelReg=DelRegDefault
+
+[Minidriver64_Install.NTamd64.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+
+[Minidriver32_Install.NTx86.Services]
+AddService = UMPass, 0x00000002, UMPassService_Install
+
+[SourceDisksFiles]
+CivMinidriver64.dll=1
+CivMinidriver.dll=1
+
+[SourceDisksNames]
+1 = %MediaDescription%
+
+[UMPassService_Install]
+DisplayName    = %umpass.SVCDESC%     ; Friendly Name of the Service
+ServiceType    = 1                    ; SERVICE_KERNEL_DRIVER
+StartType      = 3                    ; SERVICE_DEMAND_START 
+ErrorControl   = 1                    ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\umpass.sys
+LoadOrderGroup = Extended Base
+
+
+[amd64_CopyFiles]
+CivMinidriver64.dll
+
+[x86_CopyFiles]
+CivMinidriver.dll
+
+[wow64_CopyFiles]
+CivMinidriver.dll
+
+[AddRegWOW64]
+HKLM, %SmartCardNameV8WOW64%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,07,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8WOW64%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,0F,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8WOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8WOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8WOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8HighWOW64%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8HighWOW64%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8HighWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8HighWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8HighWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8TWICWOW64%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00,00
+HKLM, %SmartCardNameV8TWICWOW64%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00,00
+HKLM, %SmartCardNameV8TWICWOW64%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWICWOW64%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWICWOW64%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8WOW64CL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8WOW64CL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8WOW64CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8WOW64CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8WOW64CL%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8TWICWOW64CL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8TWICWOW64CL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8TWICWOW64CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWICWOW64CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWICWOW64CL%,"80000001",0x00000000,%SmartCardCardModule%
+
+
+[AddRegDefault]
+HKLM, %SmartCardNameV8%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,07,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,0F,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8High%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8High%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8High%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8High%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8High%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8TWIC%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00,00
+HKLM, %SmartCardNameV8TWIC%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00,00
+HKLM, %SmartCardNameV8TWIC%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWIC%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWIC%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8CL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8CL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8CL%,"80000001",0x00000000,%SmartCardCardModule%
+
+HKLM, %SmartCardNameV8TWICCL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8TWICCL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8TWICCL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWICCL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWICCL%,"80000001",0x00000000,%SmartCardCardModule%
+
+[AddRegDefault64]
+HKLM, %SmartCardNameV8%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,07,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,0F,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8%,"80000001",0x00000000,%SmartCardCardModule64%
+
+HKLM, %SmartCardNameV8High%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8High%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8High%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8High%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8High%,"80000001",0x00000000,%SmartCardCardModule64%
+
+HKLM, %SmartCardNameV8TWIC%,"ATR",0x00000001,3B,D0,00,00,80,B1,FE,45,1F,00,80,31,C1,50,00,00,00,00,00
+HKLM, %SmartCardNameV8TWIC%,"ATRMask",0x00000001,FF,F0,00,F0,F0,FF,FF,FF,FF,00,F0,FF,FF,F0,00,00,00,00,00
+HKLM, %SmartCardNameV8TWIC%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWIC%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWIC%,"80000001",0x00000000,%SmartCardCardModule64%
+
+HKLM, %SmartCardNameV8CL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00
+HKLM, %SmartCardNameV8CL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00
+HKLM, %SmartCardNameV8CL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8CL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8CL%,"80000001",0x00000000,%SmartCardCardModule64%
+
+HKLM, %SmartCardNameV8TWICCL%,"ATR",0x00000001,3B,80,80,01,80,31,C1,50,00,00,00,00
+HKLM, %SmartCardNameV8TWICCL%,"ATRMask",0x00000001,FF,F0,FF,FF,FF,FF,FF,F0,00,00,00,00
+HKLM, %SmartCardNameV8TWICCL%,"Crypto Provider",0x00000000,"Microsoft Base Smart Card Crypto Provider"
+HKLM, %SmartCardNameV8TWICCL%,"Smart Card Key Storage Provider",0x00000000,"Microsoft Smart Card Key Storage Provider"
+HKLM, %SmartCardNameV8TWICCL%,"80000001",0x00000000,%SmartCardCardModule64%
+
+[DelRegDefault]
+HKLM, %SmartCardNameV8OT%
+HKLM, %SmartCardNameV8HighOT%
+HKLM, %SmartCardNameV8CLOT%
+
+[DelRegWOW64]
+HKLM, %SmartCardNameV8WOW64OT%
+HKLM, %SmartCardNameV8HighWOW64OT%
+HKLM, %SmartCardNameV8WOW64CLOT%
+
+
+[DestinationDirs]
+amd64_CopyFiles=10,system32
+x86_CopyFiles=10,system32
+wow64_CopyFiles=10,syswow64
+
+
+
+; =================== Generic ==================================
+
+[Strings]
+FABRIKAMVENDOR ="IDEMIA"
+MediaDescription="IDEMIA PIV/CIV Smart Card Minidriver Installation Disk"
+FabrikamCardDeviceName="IDEMIA Minidriver for PIV/CIV Smart Card"
+SmartCardNameV8="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV on V8 Device"
+SmartCardNameV8High="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV on V8 Device (High Speed)"
+SmartCardNameV8TWIC="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV/TWIC on V8 Device"
+SmartCardNameV8CL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV Contactless on V8 Device"
+SmartCardNameV8TWICCL="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV/TWIC Contactless on V8 Device"
+SmartCardNameV8WOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV on V8 Device"
+SmartCardNameV8TWICWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV/TWIC on V8 Device"
+SmartCardNameV8HighWOW64="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV on V8 Device (High Speed)"
+SmartCardNameV8WOW64CL="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV Contactless on V8 Device"
+SmartCardNameV8TWICWOW64CL="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\IDEMIA ID-One PIV/CIV/TWIC Contactless on V8 Device"
+
+SmartCardNameV8OT="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV on V8 Device"
+SmartCardNameV8HighOT="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV on V8 Device (High Speed)"
+SmartCardNameV8CLOT="SOFTWARE\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV Contactless on V8 Device"
+SmartCardNameV8WOW64OT="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV on V8 Device"
+SmartCardNameV8HighWOW64OT="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV on V8 Device (High Speed)"
+SmartCardNameV8WOW64CLOT="SOFTWARE\Wow6432Node\Microsoft\Cryptography\Calais\SmartCards\Oberthur Technologies ID-One PIV/CIV Contactless on V8 Device"
+
+SmartCardCardModule="CivMinidriver.dll"
+SmartCardCardModule64="CivMinidriver64.dll"
+umpass.SVCDESC = "Microsoft UMPass Driver"
